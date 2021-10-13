@@ -1,0 +1,63 @@
+function verifyJWTandLevelDB(request, reply, done) {
+  const jwt = this.jwt
+  const level = this.level.authdb
+
+  if (request.body && request.body.failureWithReply) {
+    reply.code(401).send({ error: 'Unauthorized' })
+    return done(new Error())
+  }
+
+  if (!request.raw.headers.auth) {
+    return done(new Error('Missing token header'))
+  }
+
+  jwt.verify(request.raw.headers.auth, onVerify)
+
+  function onVerify(err, decoded) {
+    if (err || !decoded.username || !decoded.password) {
+      return done(new Error('Token not valid'))
+    }
+
+    level.get(decoded.username, onUser)
+
+    function onUser(err, password) {
+      if (err) {
+        if (err.notFound) {
+          return done(new Error('Token not valid'))
+        }
+        return done(err)
+      }
+
+      if (!password || password !== decoded.password) {
+        return done(new Error('Token not valid'))
+      }
+
+      done()
+    }
+  }
+}
+
+function verifyUserAndPassword(request, reply, done) {
+  const level = this.level.authdb
+
+  if (!request.body || !request.body.username) {
+    return done(new Error('Missing username in request body'))
+  }
+
+  level.get(request.body.username, onUser)
+
+  function onUser(err, password) {
+    if (err) {
+      if (err.notFound) {
+        return done(new Error('Password not valid'))
+      }
+      return done(err)
+    }
+
+    if (!password || password !== request.body.password) {
+      return done(new Error('Password not valid'))
+    }
+
+    done()
+  }
+}

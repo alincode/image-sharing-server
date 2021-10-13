@@ -1,0 +1,45 @@
+# set up REST Client plugin: <https://marketplace.visualstudio.com/items?itemName=humao.rest-client>
+
+GET http://127.0.0.1:5000 HTTP/1.1
+
+###
+GET http://127.0.0.1:5000/docs HTTP/1.1
+
+###
+POST  http://127.0.0.1:5000/v1/signup HTTP/1.1
+content-type: application/json
+
+{
+    "username": "alincode2",
+    "password": "12345678"
+}
+
+###
+POST  http://127.0.0.1:5000/v1/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "alincode",
+    "password": "12345678"
+}
+
+
+### Unexpected end of multipart data, Content-Type: image/jpeg
+POST  http://127.0.0.1:5000/v1/attachments HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTYzMzk0MzkyOCwiYXVkIjoid2Vic2l0ZSIsImlzcyI6ImJhY2tlbmQgc2VydmVyIiwianRpIjoiYjIwZWJiNmEwOWEyNzEyMGJkYWIzMDRkMmIwZWIzYzQ3OGFhYjdmYTQ2ZGE2MGQwZTQ3MDFlZTI1NDMxNDRhYiJ9._VyyeRShxVSrfqe7WWCEhXH_T07SVJidRDAsZgDMtxI
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryHLEB95XScjSup7Qn
+
+------WebKitFormBoundaryHLEB95XScjSup7Qn
+Content-Disposition: form-data; name="file"; filename="dog.jpeg"
+
+< ./test/dog.jpeg
+
+------WebKitFormBoundaryHLEB95XScjSup7Qn
+Content-Disposition: form-data; name="description"
+
+image description
+------WebKitFormBoundaryHLEB95XScjSup7Qn--
+
+###
+GET  http://127.0.0.1:5000/v1/attachments HTTP/1.1
+content-type: application/json

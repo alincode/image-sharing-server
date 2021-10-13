@@ -1,0 +1,31 @@
+const FormData = require('form-data')
+const fs = require('fs')
+
+jest.setTimeout(10000)
+
+// FIXME: FastifyError: Unsupported Media Type
+describe('attachment', () => {
+  let app
+  beforeAll(async () => {
+    app = await require('../start')
+    return app.ready()
+  })
+  afterAll(() => {
+    return app.close()
+  })
+
+  // docs: https://www.fastify.io/docs/latest/Testing/
+  it('should upload file successfully', async () => {
+    const form = new FormData()
+    form.append('file', fs.createReadStream('./test/dog.jpeg'))
+    form.append('description', 'image description')
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/attachments',
+      payload: form,
+    })
+
+    expect(response.statusCode).toBe(200)
+  })
+})
