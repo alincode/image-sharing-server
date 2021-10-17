@@ -2,21 +2,8 @@ const fs = require('fs')
 const util = require('util')
 const { pipeline } = require('stream')
 const pump = util.promisify(pipeline)
-const { v4: uuidv4 } = require('uuid')
+const { getConvertToAttachmentFormat } = require('../utils/convert')
 const { Attachment } = models
-
-function getConvertToAttachmentFormat(part) {
-  let mimetype = part.mimetype
-  let fileExtension = mimetype.split('/')[1]
-  let random = new Date().getTime() + '-' + uuidv4().substring(0, 4)
-  let filename = `${random}.${fileExtension}`
-  return {
-    filename,
-    sourceFilename: part.filename,
-    mimetype: part.mimetype,
-    url: process.env.IMAGE_PREFIX_URL + filename,
-  }
-}
 
 const uploadHandler = async (request, reply) => {
   const parts = request.parts()
@@ -24,7 +11,10 @@ const uploadHandler = async (request, reply) => {
   fields.attachments = []
   for await (const part of parts) {
     if (part.file) {
-      let attachment = getConvertToAttachmentFormat(part)
+      let attachment = getConvertToAttachmentFormat(
+        part.mimetype,
+        part.filename
+      )
       fields.attachments.push(attachment)
       await pump(
         part.file,
@@ -42,12 +32,12 @@ const uploadHandler = async (request, reply) => {
   //   // reply.send(new fastify.multipartErrors.FilesLimitError());
   // }
   // console.log(fields.attachments)
-
+  let { filename, sourceFilename, mimetype, url } = fields.attachments[0]
   let values = {
-    filename: fields.attachments[0].filename,
-    sourceFilename: fields.attachments[0].sourceFilename,
-    mimetype: fields.attachments[0].mimetype,
-    url: fields.attachments[0].url,
+    filename,
+    sourceFilename,
+    mimetype,
+    url,
     description: fields.description,
     UserId: request.user.dataValues.id,
   }

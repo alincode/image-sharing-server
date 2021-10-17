@@ -6,6 +6,7 @@ const { verifyJWT } = require('../../policies/auth')
 
 const attachmentOpts = {
   type: 'object',
+  required: ['id', 'url', 'description'],
   properties: {
     id: { type: 'number' },
     url: { type: 'string' },
