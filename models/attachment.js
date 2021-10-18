@@ -46,9 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       return attachment
     }
 
-    async like(userId, attachmentId) {
+    async like(userId) {
+      let attachmentId = this.dataValues.id
       let { UserLike } = this.sequelize.models
-      await Attachment.increment('likeCount', { where: { id: attachmentId } })
+      await this.increment('likeCount', { where: { id: attachmentId } })
       await UserLike.findOrCreate({
         where: {
           UserId: userId,
@@ -61,9 +62,10 @@ module.exports = (sequelize, DataTypes) => {
       return Attachment.findByPk(attachmentId)
     }
 
-    async unlike(userId, attachmentId) {
+    async unlike(userId) {
+      let attachmentId = this.dataValues.id
       let { UserLike } = this.sequelize.models
-      await Attachment.increment('unlikeCount', { where: { id: attachmentId } })
+      await this.increment('unlikeCount', { where: { id: attachmentId } })
       await UserLike.findOrCreate({
         where: {
           UserId: userId,

@@ -7,7 +7,7 @@ const likeHandler = async (request, reply) => {
     reply.code(400)
     throw Error('attachmentId not exist')
   }
-  attachment = await attachment.like(request.user.id, attachmentId)
+  attachment = await attachment.like(request.user.id)
   return attachment
 }
 
@@ -18,7 +18,7 @@ const unlikeHandler = async (request, reply) => {
     reply.code(400)
     throw Error('attachmentId not exist')
   }
-  attachment = await attachment.unlike(request.user.id, attachmentId)
+  attachment = await attachment.unlike(request.user.id)
   return attachment
 }
 
