@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.Attachment, {
           foreignKey: 'userId',
         })
+        User.belongsToMany(models.Attachment, { through: models.UserLike })
       }
     }
   }

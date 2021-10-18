@@ -48,6 +48,7 @@ function build(opts) {
   app.get('/', systemInfoOpts)
 
   app.register(require('./routes/v1/auth'), { prefix: '/v1' })
+  app.register(require('./routes/v1/userLike'), { prefix: '/v1' })
   app.register(require('./routes/v1/attachment'), { prefix: '/v1' })
 
   app.ready(() => {

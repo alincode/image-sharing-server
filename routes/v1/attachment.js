@@ -4,13 +4,15 @@ const {
 } = require('../../controllers/attachment')
 const { verifyJWT } = require('../../policies/auth')
 
-const attachmentOpts = {
+const attachmentResponse = {
   type: 'object',
   required: ['id', 'url', 'description'],
   properties: {
     id: { type: 'number' },
     url: { type: 'string' },
     description: { type: 'string' },
+    likeCount: { type: 'number' },
+    unlikeCount: { type: 'number' },
   },
 }
 
@@ -23,7 +25,7 @@ const getAttachmentsOpts = {
         properties: {
           attachments: {
             type: 'array',
-            items: attachmentOpts,
+            items: attachmentResponse,
           },
           total: { type: 'number' },
         },
@@ -48,7 +50,7 @@ const createAttachmentsOptsOpts = {
       },
     },
     response: {
-      200: attachmentOpts,
+      200: attachmentResponse,
     },
   },
   preHandler: verifyJWT,

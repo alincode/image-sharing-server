@@ -24,7 +24,7 @@ content-type: application/json
 }
 
 
-### Unexpected end of multipart data, Content-Type: image/jpeg
+### 
 POST  http://127.0.0.1:5000/v1/attachments HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTYzMzk0MzkyOCwiYXVkIjoid2Vic2l0ZSIsImlzcyI6ImJhY2tlbmQgc2VydmVyIiwianRpIjoiYjIwZWJiNmEwOWEyNzEyMGJkYWIzMDRkMmIwZWIzYzQ3OGFhYjdmYTQ2ZGE2MGQwZTQ3MDFlZTI1NDMxNDRhYiJ9._VyyeRShxVSrfqe7WWCEhXH_T07SVJidRDAsZgDMtxI
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryHLEB95XScjSup7Qn
@@ -41,5 +41,17 @@ image description
 ------WebKitFormBoundaryHLEB95XScjSup7Qn--
 
 ###
-GET  http://127.0.0.1:5000/v1/attachments HTTP/1.1
+POST  http://127.0.0.1:5000/v1/attachments/1/like HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTYzMzk0MzkyOCwiYXVkIjoid2Vic2l0ZSIsImlzcyI6ImJhY2tlbmQgc2VydmVyIiwianRpIjoiYjIwZWJiNmEwOWEyNzEyMGJkYWIzMDRkMmIwZWIzYzQ3OGFhYjdmYTQ2ZGE2MGQwZTQ3MDFlZTI1NDMxNDRhYiJ9._VyyeRShxVSrfqe7WWCEhXH_T07SVJidRDAsZgDMtxI
 content-type: application/json
+
+{
+}
+
+###
+POST  http://127.0.0.1:5000/v1/attachments/1/unlike HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTYzMzk0MzkyOCwiYXVkIjoid2Vic2l0ZSIsImlzcyI6ImJhY2tlbmQgc2VydmVyIiwianRpIjoiYjIwZWJiNmEwOWEyNzEyMGJkYWIzMDRkMmIwZWIzYzQ3OGFhYjdmYTQ2ZGE2MGQwZTQ3MDFlZTI1NDMxNDRhYiJ9._VyyeRShxVSrfqe7WWCEhXH_T07SVJidRDAsZgDMtxI
+content-type: application/json
+
+{
+}
