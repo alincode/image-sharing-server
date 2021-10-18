@@ -31,6 +31,7 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryHLEB95XScjSup7
 
 ------WebKitFormBoundaryHLEB95XScjSup7Qn
 Content-Disposition: form-data; name="file"; filename="dog.jpeg"
+Content-Type: image/jpeg
 
 < ./test/dog.jpeg
 
