@@ -6,7 +6,11 @@ const PORT = process.env.PORT || 5000
 let app
 
 const start = async () => {
-  let appOpts = { logger: true }
+  let appOpts = {
+    logger: {
+      prettyPrint: true,
+    },
+  }
   // let appOpts = { logger: { level: 'info' } }
   app = build(appOpts)
   try {
